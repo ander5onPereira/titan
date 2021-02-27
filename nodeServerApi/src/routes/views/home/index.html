@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--<script type="text/javascript" src="./javascript.js"></script>-->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" href="./../img/favicon.ico" type="image/x-icon" />
+    <title>Automação Residencial</title>
+  </head>
+
+  <style>
+    /*CSS*/
+    button {
+      background: black;
+      color: white;
+    }
+    table {
+      width: 90%;
+      position: absolute;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, 0);
+    }
+    td {
+      text-align: center;
+    }
+    table#t01 th {
+      background-color: black;
+      color: white;
+    }
+    table#t01 tr:nth-child(odd) {
+      background-color: #fff;
+    }
+    table#t01 tr:nth-child(even) {
+      background-color: #eee;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+    input:checked + .slider {
+      background-color: black;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px black;
+    }
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+  </style>
+
+  <script>
+    //javaScript
+    var a;
+    function buscaConsumo() {
+      fetch("http://localhost:3000/consumoEsp/soma/sun").then(consumo => {
+        consumo.json().then(data => {
+          //console.log(data[0]._id);
+          a = data;
+        });
+        //a = consumo;
+        //return consumo.json();
+      });
+    }
+
+    function createTabela() {
+      buscaConsumo();
+      //console.log(a);
+      fetch("http://localhost:3000/estados")
+        .then(resposta => {
+          return resposta.json();
+        })
+        .then(resposta => {
+          var t01 = document.getElementById("t01");
+          //var body = document.getElementsByTagName("body")[0];
+          var tbl = document.getElementById("t01");
+          var tblBody = document.createElement("tbody");
+
+          //console.log(Object.keys(resposta).length);
+          //Object.keys(resposta).length - 2
+          for (var j = 0; j < 4; j++) {
+            var row = document.createElement("tr");
+            var ptn = document.createElement("td");
+            var validar = false;
+            for (var i = 0; i < Object.keys(a).length; i++) {
+              if (resposta[j].nome == a[i]._id) {
+                var cnsText = document.createTextNode(a[i].total);
+                validar = true;
+              }
+            }
+            if (validar == false) {
+              var cnsText = document.createTextNode("0");
+            }
+            var qtdTd = "td" + j;
+            ptn.setAttribute("id", qtdTd);
+            var ptnText = document.createTextNode(resposta[j].nome);
+            ptn.appendChild(ptnText);
+            row.appendChild(ptn);
+            var cns = document.createElement("td");
+            var qtdTd2 = "td" + j;
+            ptn.setAttribute("id", qtdTd2);
+
+            cns.appendChild(cnsText);
+            row.appendChild(cns);
+            var std = document.createElement("td");
+            var btnLabel = document.createElement("label");
+            var btnInput = document.createElement("input");
+            var btnSpan = document.createElement("span");
+            var btnDiv = document.createElement("div");
+            var btnDivText = document.createTextNode(resposta[j].estado);
+            btnLabel.setAttribute("class", "switch");
+            btnInput.setAttribute("id", "btn");
+            var num = "btn" + j;
+            btnInput.setAttribute("value", num);
+            btnInput.setAttribute("type", "checkbox");
+            btnInput.checked = resposta[j].estado;
+            var ident = "Div" + j;
+            btnInput.setAttribute("onclick", "ativ(this,'" + ident + "')");
+            btnSpan.setAttribute("class", "slider");
+            btnDiv.setAttribute("id", ident);
+            btnDiv.setAttribute("key", resposta[j]._id);
+            var stdText = document.createTextNode(resposta[j].estado);
+            btnLabel.appendChild(btnInput);
+            btnLabel.appendChild(btnSpan);
+
+            std.appendChild(btnLabel);
+            btnDiv.appendChild(btnDivText);
+            std.appendChild(btnDiv);
+            row.appendChild(std);
+
+            tblBody.appendChild(row);
+          }
+          tbl.appendChild(tblBody);
+        });
+    }
+    function resultDisp() {
+      fetch("http://localhost:3000/estados")
+        .then(resposta => {
+          return resposta.json();
+        })
+        .then(resposta => {
+          var estado = document.getElementById("linha");
+          var td01 = document.getElementById("td1");
+          var td02 = document.getElementById("td2");
+          var div01 = document.getElementById("Div0");
+          var btn = document.getElementById("btn");
+
+          td01.innerHTML = resposta[0].nome;
+          td02.innerHTML = resposta[0].ponto;
+          div01.innerHTML = resposta[0].estado;
+          btn.checked = resposta[0].estado;
+        });
+    }
+    function ativ(bt, dv) {
+      var x = document.getElementById(dv);
+      fetch("http://localhost:3000/estados/" + x.getAttribute("key")) //5d9e70ad8e2ced3560515f43")
+        .then(resposta => {
+          return resposta.json();
+        })
+        .then(resposta => {
+          x.innerHTML = resposta[0].estado;
+        });
+    }
+    function myFunction(bt, dv) {
+      var x = document.getElementById(dv);
+
+      if (x.innerHTML === "OFF") {
+        x.innerHTML = "ON ";
+      } else {
+        x.innerHTML = "OFF";
+      }
+    }
+    function config() {
+      window.location = "./conf";
+    }
+    function statusServer() {
+      window.location = "./statusServer";
+    }
+    function entrar() {
+      window.location = "./add";
+    }
+  </script>
+
+  <body onload="{createTabela()}">
+    <table id="t01">
+      <tr>
+        <td><button id="config" onclick="config()">Config</button></td>
+        <td><button onclick="entrar()">Entrar</button></td>
+        <td><button onclick="statusServer()">Buscar Server</button></td>
+      </tr>
+      <tr>
+        <th>Ponto</th>
+        <th>Consumo/mês</th>
+        <th>Estado</th>
+      </tr>
+    </table>
+  </body>
+</html>

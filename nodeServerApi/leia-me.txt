@@ -1,0 +1,50 @@
+npm install -g nodemon
+START SERVER
+-> nodemon .\bin\server.js
+
+MONGO DB
+
+-> start server mongod
+-> abrir shell mongo "mongo"
+-- ver databese -> "show dbs"
+-- delete databese -> "use nomeDB" 
+                   -> "db.dropDatabase()"
+
+TEST API REST JSON
+-- Insomnia
+
+
+REQUISICÕES
+
+/* GET */
+-- localhost:3000/products
+-- localhost:3000/products/mouse-gamer
+-- localhost:3000/products/admin/5d8a1693579624213482e85d
+-- localhost:3000/products/tags/games
+
+/* POST */
+--localhost:3000/products
+  json{
+  	"title":"Teste",
+  	"description":"Mouse Gamer",
+  	"slug":"mouse-gamer",
+	  "price":299,
+  	"__v":0,
+  	"tags":["informatica",	"mouse","games"],
+	  "active":"true"
+  }
+
+/* PUT */
+-- localhost:3000/products/5d8a1693579624213482e85d
+  json{
+  	"title":"Cadeira",
+	  "description":"Cadeira Gamer",
+	  "slug":"cadeira-gamer",
+	  "price":"1299"
+  }
+
+/* DEL */
+--localhost:3000/products
+  json {
+	    "id":"5d8a25b5bce06c2404e73fd7"
+  }

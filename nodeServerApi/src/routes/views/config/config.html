@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <style>
+    /*CSS*/
+    button {
+      background: black;
+      color: white;
+    }
+    table {
+      width: 90%;
+      position: absolute;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, 0);
+    }
+    td {
+      text-align: center;
+    }
+    table#t01 th {
+      background-color: black;
+      color: white;
+    }
+    table#t01 tr:nth-child(odd) {
+      background-color: #fff;
+    }
+    table#t01 tr:nth-child(even) {
+      background-color: #eee;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+    input:checked + .slider {
+      background-color: black;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px black;
+    }
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+  </style>
+
+  <script>
+    function index() {
+      window.location = "./";
+    }
+    function salvarIP() {
+      var ipServer = document.getElementById("ipServer");
+      var portServer = document.getElementById("portServer");
+    }
+    function salvarServer() {
+      var ipEsp = document.getElementById("ipEsp");
+    }
+    function salvar() {}
+  </script>
+
+  <body>
+    <table id="t01">
+      <tr>
+        <td><button id="config" onclick="index()">Inicio</button></td>
+      </tr>
+      <tr>
+        <th>ID -> Nome</th>
+      </tr>
+      <tr>
+        <td>
+          PONTO 1:
+          <input type="text" />
+          <button id="salvar" onclick="salvar()">Salvar</button>
+        </td>
+      </tr>
+      <tr>
+        <th>IP do ESP</th>
+      </tr>
+      <tr>
+        <td>
+          <Label>IP:</Label> <input id="ipEsp" type="text" />
+          <button id="salvar" onclick="salvarIP()">Salvar IP</button>
+        </td>
+      </tr>
+      <tr>
+        <th>IP SERVIDOR</th>
+      </tr>
+      <tr>
+        <td>
+          <Label>IP:</Label> <input id="ipServer" type="text" />
+          <Label>Porta:</Label>
+          <input id="portServer" type="text" />
+          <button id="salvar" onclick="salvarServer()">Salvar Servidor</button>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
