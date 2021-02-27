@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Automação Residencial</title>
+  </head>
+  <style>
+    button {
+      background: black;
+      color: white;
+    }
+    table {
+      width: 90%;
+      position: absolute;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, 0);
+    }
+    td {
+      text-align: center;
+    }
+    table#t01 th {
+      background-color: black;
+      color: white;
+    }
+    table#t01 tr:nth-child(odd) {
+      background-color: #fff;
+    }
+    table#t01 tr:nth-child(even) {
+      background-color: #eee;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+    input:checked + .slider {
+      background-color: black;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px black;
+    }
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+  </style>
+  <script>
+    function myFunction(bt, dv) {
+      var x = document.getElementById(dv);
+      //var y = document.getElementById("myDIV").getAttribute("data-value");
+      //alert(y);
+      if (x.innerHTML === "OFF") {
+        x.innerHTML = "ON ";
+      } else {
+        x.innerHTML = "OFF";
+      }
+    }
+    function config() {
+      window.location = "./config";
+    }
+    function entrar() {
+      window.location = "./add";
+    }
+  </script>
+  <body>
+    <table id="t01">
+      <tr>
+        <td><button id="config" onclick="config()">Config</button></td>
+        <td><button onclick="entrar()">Entrar</button></td>
+      </tr>
+      <tr>
+        <th>Ponto</th>
+        <th>Consumo</th>
+        <th>Estado</th>
+      </tr>
+      <tr>
+        <td>Ponto 01</td>
+        <td>5W</td>
+        <td>
+          <label class="switch">
+            <input
+              id="btn"
+              value="btn01"
+              type="checkbox"
+              onclick="myFunction(this,'Div01')"
+            />
+            <span class="slider"></span>
+          </label>
+          <div id="Div01">OFF</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Ponto 02</td>
+        <td>1W</td>
+        <td>
+          <label class="switch">
+            <input
+              id="btn"
+              value="btn02"
+              type="checkbox"
+              onclick="myFunction(this,'Div02')"
+            />
+            <span class="slider"></span>
+          </label>
+          <div id="Div02">OFF</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Ponto 03</td>
+        <td>6W</td>
+        <td>
+          <label class="switch">
+            <input
+              id="btn"
+              value="btn03"
+              type="checkbox"
+              onclick="myFunction(this,'Div03')"
+            />
+            <span class="slider"></span>
+          </label>
+          <div id="Div03">OFF</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Ponto 04</td>
+        <td>18W</td>
+        <td>
+          <label class="switch">
+            <input
+              id="btn"
+              value="btn04"
+              type="checkbox"
+              onclick="myFunction(this,'Div04')"
+            />
+            <span class="slider"></span>
+          </label>
+          <div id="Div04">OFF</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Ponto 05</td>
+        <td>2W</td>
+        <td>
+          <label class="switch">
+            <input
+              id="btn"
+              value="btn05"
+              type="checkbox"
+              onclick="myFunction(this,'Div05')"
+            />
+            <span class="slider"></span>
+          </label>
+          <div id="Div05">OFF</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Ponto 06</td>
+        <td>25w</td>
+        <td>
+          <label class="switch">
+            <input
+              id="btn"
+              value="btn06"
+              type="checkbox"
+              onclick="myFunction(this,'Div06')"
+            />
+            <span class="slider"></span>
+          </label>
+          <div id="Div06">OFF</div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

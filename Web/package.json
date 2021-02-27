@@ -1,0 +1,24 @@
+{
+  "name": "automacao-iot",
+  "version": "1.0.0",
+  "description": "servidor node paa aplicacao automacao iot",
+  "author": "Anderson Pereira Rodrigues <anderson.carro.95@gmail.com>",
+  "license": "MIT",
+  "main": "app.js",
+  "keywords": [
+    "nodejs",
+    "bootstrap",
+    "express"
+  ],
+  "dependencies": {
+    "express": "^4.17.1",
+    "lowdb": "^1.0.0",
+    "mongoose": "^5.7.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  }
+}

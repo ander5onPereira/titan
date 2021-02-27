@@ -1,0 +1,11 @@
+<div id="app"></div>
+<script>
+  var linkElement = document.createElement("p");
+  var test = "1;1;0;0;1;0";
+  var textElement = document.createTextNode(test);
+
+  linkElement.appendChild(textElement);
+
+  var containerElement = document.querySelector("#app");
+  containerElement.appendChild(textElement);
+</script>
