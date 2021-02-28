@@ -10,13 +10,7 @@ const app = express();
 const router = express.Router();
 
 //connecta ao banco
-mongoose.connect(
-  "mongodb+srv://omnistack_anderson:anderson1995@omnistack-jmh53.mongodb.net/semana09?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }
-);
+
 /*mongoose
   .connect("mongodb://localhost/apitest", {
     useNewUrlParser: true,
@@ -48,7 +42,7 @@ app.set("view engine", "ejs");
 //const estado = require("./routes/estados");
 //const config = require("./routes/config");
 app.use(cors());
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
